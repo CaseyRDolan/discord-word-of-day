@@ -61,8 +61,6 @@ jobs:
           WOTD_INTRO_TEXT: "Wordussies, today's word has dropped."
           WOTD_CHALLENGE_TEXT: "Use **{word}** in a sentence at some point today."
           WOTD_ROLE_ID: "1503222086682808370"
-          WOTD_GIF_ENABLED: "1"
-          GIPHY_API_KEY: ${{ secrets.GIPHY_API_KEY }}
           DRY_RUN: ${{ inputs.dry_run || 'false' }}
         run: node word-of-day-discord/post-word-of-day.mjs
 
