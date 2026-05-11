@@ -28,6 +28,9 @@ const introText =
 const challengeText =
   process.env.WOTD_CHALLENGE_TEXT ||
   "Use **{word}** in a sentence at some point today.";
+const gifEnabled = process.env.WOTD_GIF_ENABLED === undefined
+  ? true
+  : isTruthy(process.env.WOTD_GIF_ENABLED);
 
 const requestedDateKey = getDateKey({
   override: args.get("date") || process.env.WOTD_DATE,
@@ -42,6 +45,13 @@ const word = await getWordOfDay({
   strictDate: Boolean(args.get("date") || process.env.WOTD_DATE),
 });
 const dateKey = word.date || requestedDateKey;
+
+if (gifEnabled) {
+  word.gif = await fetchTopGifForWord(word.word).catch((error) => {
+    console.warn(`Could not fetch GIF for "${word.word}": ${error.message}`);
+    return null;
+  });
+}
 
 if (!dryRun && !force && alreadyPosted(stateFile, dateKey)) {
   console.log(`Already posted for ${dateKey}. Use --force to post again.`);
@@ -68,6 +78,7 @@ writeState(stateFile, {
   word: word.word,
   source: word.source,
   url: word.link,
+  gif: word.gif?.pageUrl,
   postedAt: new Date().toISOString(),
 });
 
@@ -121,6 +132,50 @@ function parseArgs(rawArgs) {
 
 function isTruthy(value) {
   return ["1", "true", "yes", "on"].includes(String(value || "").toLowerCase());
+}
+
+async function fetchTopGifForWord(word) {
+  const apiKey = process.env.GIPHY_API_KEY || process.env.WOTD_GIPHY_API_KEY;
+  if (!apiKey) {
+    console.warn("Skipping GIF lookup because GIPHY_API_KEY is not configured.");
+    return null;
+  }
+
+  const url = new URL("https://api.giphy.com/v1/gifs/search");
+  url.searchParams.set("api_key", apiKey);
+  url.searchParams.set("q", word);
+  url.searchParams.set("limit", "1");
+  url.searchParams.set("offset", "0");
+  url.searchParams.set("rating", process.env.WOTD_GIPHY_RATING || "pg");
+  url.searchParams.set("lang", process.env.WOTD_GIPHY_LANG || "en");
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`GIPHY search failed: ${response.status} ${body}`);
+  }
+
+  const result = await response.json();
+  const gif = result.data?.[0];
+  if (!gif) {
+    return null;
+  }
+
+  const imageUrl =
+    gif.images?.downsized_large?.url ||
+    gif.images?.downsized?.url ||
+    gif.images?.original?.url;
+
+  if (!imageUrl) {
+    return null;
+  }
+
+  return {
+    imageUrl,
+    pageUrl: gif.url,
+    title: cleanText(gif.title) || `Top GIF for ${word}`,
+    source: "GIPHY",
+  };
 }
 
 function getDateKey({ override, timeZone }) {
@@ -396,6 +451,14 @@ function buildDiscordPayload(word, dateKey) {
     });
   }
 
+  if (word.gif?.pageUrl) {
+    fields.push({
+      name: "GIF",
+      value: `[Top GIPHY result for "${word.word}"](${word.gif.pageUrl})`,
+      inline: false,
+    });
+  }
+
   if (word.synonyms?.length) {
     fields.push({
       name: "Similar words",
@@ -429,6 +492,11 @@ function buildDiscordPayload(word, dateKey) {
         url: word.link,
         description: `**Definition**\n${truncate(word.definition, 900)}`,
         color: Number.parseInt(process.env.WOTD_EMBED_COLOR || "3BA55D", 16),
+        image: word.gif?.imageUrl
+          ? {
+              url: word.gif.imageUrl,
+            }
+          : undefined,
         fields,
         footer: {
           text: `${word.source || "Word of the Day"} - ${dateKey}`,

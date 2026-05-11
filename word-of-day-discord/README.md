@@ -86,7 +86,8 @@ One-time setup:
 3. Go to **Secrets and variables** > **Actions**.
 4. Create a repository secret named `DISCORD_WEBHOOK_URL`.
 5. Paste your Discord webhook URL as the secret value.
-6. Open the **Actions** tab and enable workflows if GitHub asks.
+6. Optional: create another repository secret named `GIPHY_API_KEY` to include the top GIF result for the daily word.
+7. Open the **Actions** tab and enable workflows if GitHub asks.
 
 You can test the hosted workflow manually from the **Actions** tab by choosing **Discord Word of the Day** and clicking **Run workflow**. Choose `dry_run=true` to preview without posting.
 
@@ -129,9 +130,18 @@ WOTD_EMBED_COLOR=3BA55D
 WOTD_SOURCE=merriam-webster
 WOTD_INTRO_TEXT=Wordussies, today's word has dropped.
 WOTD_CHALLENGE_TEXT=Use **{word}** in a sentence at some point today.
+WOTD_GIF_ENABLED=1
 WOTD_ROLE_ID=123456789012345678
 ```
 
 The bot will replace `{word}` in the challenge text with the daily word.
+
+To include a GIF, create a GIPHY API key from the GIPHY developer dashboard, then add it as:
+
+```ini
+GIPHY_API_KEY=your-giphy-api-key
+```
+
+When `WOTD_GIF_ENABLED=1` and `GIPHY_API_KEY` is configured, the bot searches GIPHY for the exact daily word, takes the first result, and displays it as the embed image.
 
 If you add `WOTD_ROLE_ID`, use a Discord role ID, not the visible role name. In Discord, enable Developer Mode, right-click the `Wordussies` role, and choose **Copy Role ID**.
