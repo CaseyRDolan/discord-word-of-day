@@ -1,0 +1,13 @@
+{
+  "name": "discord-word-of-day",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "post": "node post-word-of-day.mjs",
+    "dry-run": "node post-word-of-day.mjs --dry-run"
+  },
+  "dependencies": {
+    "rss-parser": "^3.13.0"
+  }
+}

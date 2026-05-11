@@ -1,0 +1,490 @@
+[
+  {
+    "word": "luminous",
+    "pronunciation": "LOO-muh-nus",
+    "partOfSpeech": "adjective",
+    "definition": "Giving off light, or clear and inspiring in a way that seems to glow.",
+    "example": "Her explanation was so luminous that the whole problem finally made sense.",
+    "synonyms": ["radiant", "bright", "lucid"]
+  },
+  {
+    "word": "resolute",
+    "pronunciation": "REZ-uh-loot",
+    "partOfSpeech": "adjective",
+    "definition": "Firmly determined and steady in purpose.",
+    "example": "Even after the delay, the team stayed resolute and finished the launch.",
+    "synonyms": ["determined", "steadfast", "unwavering"]
+  },
+  {
+    "word": "mellifluous",
+    "pronunciation": "muh-LIF-loo-us",
+    "partOfSpeech": "adjective",
+    "definition": "Sweet, smooth, and pleasant to hear.",
+    "example": "The narrator had a mellifluous voice that made the audiobook easy to sink into.",
+    "synonyms": ["melodic", "smooth", "musical"]
+  },
+  {
+    "word": "ephemeral",
+    "pronunciation": "ih-FEM-er-ul",
+    "partOfSpeech": "adjective",
+    "definition": "Lasting for only a short time.",
+    "example": "The sunset was ephemeral, but everyone stopped to watch it anyway.",
+    "synonyms": ["brief", "fleeting", "transient"]
+  },
+  {
+    "word": "clarion",
+    "pronunciation": "KLAIR-ee-un",
+    "partOfSpeech": "adjective",
+    "definition": "Clear, strong, and impossible to ignore.",
+    "example": "The captain gave a clarion call for volunteers before the final match.",
+    "synonyms": ["clear", "ringing", "urgent"]
+  },
+  {
+    "word": "tenacious",
+    "pronunciation": "tuh-NAY-shus",
+    "partOfSpeech": "adjective",
+    "definition": "Holding firmly to a purpose, belief, or goal.",
+    "example": "A tenacious researcher kept testing until the strange result made sense.",
+    "synonyms": ["persistent", "gritty", "determined"]
+  },
+  {
+    "word": "serendipity",
+    "pronunciation": "sair-un-DIP-uh-tee",
+    "partOfSpeech": "noun",
+    "definition": "The luck of finding something good or useful by chance.",
+    "example": "Finding the perfect cafe beside the train station felt like pure serendipity.",
+    "synonyms": ["chance", "luck", "fortune"]
+  },
+  {
+    "word": "eloquent",
+    "pronunciation": "EL-uh-kwunt",
+    "partOfSpeech": "adjective",
+    "definition": "Able to express ideas clearly, gracefully, and powerfully.",
+    "example": "His short speech was eloquent without sounding rehearsed.",
+    "synonyms": ["expressive", "articulate", "persuasive"]
+  },
+  {
+    "word": "verdant",
+    "pronunciation": "VUR-dunt",
+    "partOfSpeech": "adjective",
+    "definition": "Green with growing plants; fresh and flourishing.",
+    "example": "After the rain, the trail opened into a verdant valley.",
+    "synonyms": ["green", "lush", "leafy"]
+  },
+  {
+    "word": "audacious",
+    "pronunciation": "aw-DAY-shus",
+    "partOfSpeech": "adjective",
+    "definition": "Bold, daring, and willing to take risks.",
+    "example": "The startup made an audacious promise and then worked hard enough to keep it.",
+    "synonyms": ["bold", "daring", "fearless"]
+  },
+  {
+    "word": "lucid",
+    "pronunciation": "LOO-sid",
+    "partOfSpeech": "adjective",
+    "definition": "Clear and easy to understand.",
+    "example": "The guide turned a confusing rule into a lucid example.",
+    "synonyms": ["clear", "coherent", "plain"]
+  },
+  {
+    "word": "sonder",
+    "pronunciation": "SAHN-der",
+    "partOfSpeech": "noun",
+    "definition": "The realization that each passerby has a life as vivid and complex as your own.",
+    "example": "A moment of sonder hit him as the train doors opened and everyone hurried out.",
+    "synonyms": ["awareness", "empathy", "perspective"]
+  },
+  {
+    "word": "pragmatic",
+    "pronunciation": "prag-MAT-ik",
+    "partOfSpeech": "adjective",
+    "definition": "Focused on practical results instead of theories or ideals.",
+    "example": "They chose the pragmatic fix first, then planned the cleaner rebuild.",
+    "synonyms": ["practical", "realistic", "sensible"]
+  },
+  {
+    "word": "effervescent",
+    "pronunciation": "ef-er-VES-unt",
+    "partOfSpeech": "adjective",
+    "definition": "Full of lively energy, enthusiasm, or bubbles.",
+    "example": "Her effervescent mood made the long meeting feel lighter.",
+    "synonyms": ["lively", "sparkling", "buoyant"]
+  },
+  {
+    "word": "meticulous",
+    "pronunciation": "muh-TIK-yuh-lus",
+    "partOfSpeech": "adjective",
+    "definition": "Extremely careful and attentive to details.",
+    "example": "The chef was meticulous about every fold of the pastry.",
+    "synonyms": ["careful", "thorough", "precise"]
+  },
+  {
+    "word": "vivid",
+    "pronunciation": "VIV-id",
+    "partOfSpeech": "adjective",
+    "definition": "Bright, intense, or producing a strong mental image.",
+    "example": "The witness gave a vivid description of the storm rolling in.",
+    "synonyms": ["bright", "striking", "intense"]
+  },
+  {
+    "word": "amiable",
+    "pronunciation": "AY-mee-uh-bul",
+    "partOfSpeech": "adjective",
+    "definition": "Friendly, pleasant, and easy to get along with.",
+    "example": "The new moderator had an amiable style that calmed the chat.",
+    "synonyms": ["friendly", "pleasant", "warm"]
+  },
+  {
+    "word": "nimble",
+    "pronunciation": "NIM-bul",
+    "partOfSpeech": "adjective",
+    "definition": "Quick and light in movement or thought.",
+    "example": "A nimble plan helped them adjust when the venue changed.",
+    "synonyms": ["quick", "agile", "light"]
+  },
+  {
+    "word": "candid",
+    "pronunciation": "KAN-did",
+    "partOfSpeech": "adjective",
+    "definition": "Honest, direct, and sincere.",
+    "example": "Her candid feedback helped the design improve without drama.",
+    "synonyms": ["honest", "frank", "open"]
+  },
+  {
+    "word": "quintessential",
+    "pronunciation": "kwin-tuh-SEN-shul",
+    "partOfSpeech": "adjective",
+    "definition": "Representing the most perfect or typical example of something.",
+    "example": "The warm pie cooling on the counter was a quintessential fall moment.",
+    "synonyms": ["classic", "ideal", "archetypal"]
+  },
+  {
+    "word": "kinetic",
+    "pronunciation": "kih-NET-ik",
+    "partOfSpeech": "adjective",
+    "definition": "Related to movement, or full of active energy.",
+    "example": "The dance had a kinetic rhythm that pulled everyone toward the stage.",
+    "synonyms": ["active", "dynamic", "energetic"]
+  },
+  {
+    "word": "incisive",
+    "pronunciation": "in-SY-siv",
+    "partOfSpeech": "adjective",
+    "definition": "Clear, sharp, and able to get straight to the heart of a matter.",
+    "example": "The editor's incisive note revealed the real problem with the draft.",
+    "synonyms": ["sharp", "keen", "perceptive"]
+  },
+  {
+    "word": "magnanimous",
+    "pronunciation": "mag-NAN-uh-mus",
+    "partOfSpeech": "adjective",
+    "definition": "Generous, forgiving, and noble in spirit.",
+    "example": "The winner was magnanimous and praised every finalist by name.",
+    "synonyms": ["generous", "gracious", "forgiving"]
+  },
+  {
+    "word": "quietude",
+    "pronunciation": "KWY-uh-tood",
+    "partOfSpeech": "noun",
+    "definition": "A state of calmness, stillness, or peaceful quiet.",
+    "example": "The library's quietude made it easier to think clearly.",
+    "synonyms": ["calm", "stillness", "tranquility"]
+  },
+  {
+    "word": "spry",
+    "pronunciation": "spry",
+    "partOfSpeech": "adjective",
+    "definition": "Active, lively, and quick in movement.",
+    "example": "Despite the long hike, she was still spry at the top of the ridge.",
+    "synonyms": ["lively", "agile", "quick"]
+  },
+  {
+    "word": "panorama",
+    "pronunciation": "pan-uh-RAM-uh",
+    "partOfSpeech": "noun",
+    "definition": "A wide, sweeping view of a large area.",
+    "example": "The balcony opened onto a panorama of rooftops and river lights.",
+    "synonyms": ["view", "vista", "scene"]
+  },
+  {
+    "word": "buoyant",
+    "pronunciation": "BOY-unt",
+    "partOfSpeech": "adjective",
+    "definition": "Able to float, or cheerful and able to recover quickly.",
+    "example": "The team's buoyant attitude survived even the toughest round.",
+    "synonyms": ["cheerful", "resilient", "upbeat"]
+  },
+  {
+    "word": "sagacious",
+    "pronunciation": "suh-GAY-shus",
+    "partOfSpeech": "adjective",
+    "definition": "Wise, perceptive, and showing good judgment.",
+    "example": "Her sagacious advice saved us from rushing into a messy deal.",
+    "synonyms": ["wise", "perceptive", "judicious"]
+  },
+  {
+    "word": "reverie",
+    "pronunciation": "REV-uh-ree",
+    "partOfSpeech": "noun",
+    "definition": "A pleasant state of dreamy thought.",
+    "example": "He slipped into a reverie while the rain tapped against the window.",
+    "synonyms": ["daydream", "musing", "dream"]
+  },
+  {
+    "word": "convivial",
+    "pronunciation": "kun-VIV-ee-ul",
+    "partOfSpeech": "adjective",
+    "definition": "Friendly, lively, and enjoyable, especially in social settings.",
+    "example": "The dinner turned convivial once everyone started sharing stories.",
+    "synonyms": ["sociable", "friendly", "festive"]
+  },
+  {
+    "word": "exuberant",
+    "pronunciation": "ig-ZOO-ber-unt",
+    "partOfSpeech": "adjective",
+    "definition": "Full of excitement, energy, and joy.",
+    "example": "The crowd was exuberant when the final point landed.",
+    "synonyms": ["joyful", "energetic", "enthusiastic"]
+  },
+  {
+    "word": "diligent",
+    "pronunciation": "DIL-uh-junt",
+    "partOfSpeech": "adjective",
+    "definition": "Showing steady, careful effort.",
+    "example": "A diligent review caught the error before the report went out.",
+    "synonyms": ["careful", "hardworking", "thorough"]
+  },
+  {
+    "word": "halcyon",
+    "pronunciation": "HAL-see-un",
+    "partOfSpeech": "adjective",
+    "definition": "Calm, peaceful, and happy.",
+    "example": "They remembered the halcyon summer when every evening felt endless.",
+    "synonyms": ["peaceful", "calm", "golden"]
+  },
+  {
+    "word": "perspicacious",
+    "pronunciation": "pur-spuh-KAY-shus",
+    "partOfSpeech": "adjective",
+    "definition": "Quick to notice and understand things that are not obvious.",
+    "example": "The perspicacious student spotted the hidden assumption in the question.",
+    "synonyms": ["insightful", "sharp", "observant"]
+  },
+  {
+    "word": "cogent",
+    "pronunciation": "KOH-junt",
+    "partOfSpeech": "adjective",
+    "definition": "Clear, logical, and convincing.",
+    "example": "The proposal won support because the argument was cogent and brief.",
+    "synonyms": ["convincing", "logical", "sound"]
+  },
+  {
+    "word": "winsome",
+    "pronunciation": "WIN-sum",
+    "partOfSpeech": "adjective",
+    "definition": "Charming in a gentle, appealing way.",
+    "example": "The poster had a winsome style that made the event feel welcoming.",
+    "synonyms": ["charming", "appealing", "pleasant"]
+  },
+  {
+    "word": "fortitude",
+    "pronunciation": "FOR-tuh-tood",
+    "partOfSpeech": "noun",
+    "definition": "Strength and courage during pain, difficulty, or pressure.",
+    "example": "It took fortitude to keep practicing after such a rough first attempt.",
+    "synonyms": ["courage", "strength", "endurance"]
+  },
+  {
+    "word": "aurora",
+    "pronunciation": "uh-ROR-uh",
+    "partOfSpeech": "noun",
+    "definition": "A natural display of colored light in the sky, especially near the poles.",
+    "example": "The aurora rippled above the campsite like green silk.",
+    "synonyms": ["dawn", "daybreak", "northern lights"]
+  },
+  {
+    "word": "assiduous",
+    "pronunciation": "uh-SIJ-oo-us",
+    "partOfSpeech": "adjective",
+    "definition": "Showing great care, attention, and persistence.",
+    "example": "The archivist made assiduous notes on every fragile page.",
+    "synonyms": ["diligent", "careful", "persistent"]
+  },
+  {
+    "word": "ineffable",
+    "pronunciation": "in-EF-uh-bul",
+    "partOfSpeech": "adjective",
+    "definition": "Too great, intense, or beautiful to be fully described in words.",
+    "example": "The choir's final chord left an ineffable hush in the room.",
+    "synonyms": ["indescribable", "unspeakable", "transcendent"]
+  },
+  {
+    "word": "adroit",
+    "pronunciation": "uh-DROYT",
+    "partOfSpeech": "adjective",
+    "definition": "Clever and skillful, especially in handling difficult situations.",
+    "example": "Her adroit reply kept the conversation honest and calm.",
+    "synonyms": ["skillful", "clever", "deft"]
+  },
+  {
+    "word": "pellucid",
+    "pronunciation": "puh-LOO-sid",
+    "partOfSpeech": "adjective",
+    "definition": "Very clear in meaning, style, or appearance.",
+    "example": "The tutorial was pellucid enough for beginners to follow.",
+    "synonyms": ["clear", "transparent", "lucid"]
+  },
+  {
+    "word": "zeal",
+    "pronunciation": "zeel",
+    "partOfSpeech": "noun",
+    "definition": "Strong energy and enthusiasm for a cause or goal.",
+    "example": "The volunteers brought fresh zeal to the cleanup effort.",
+    "synonyms": ["enthusiasm", "passion", "fervor"]
+  },
+  {
+    "word": "tacit",
+    "pronunciation": "TAS-it",
+    "partOfSpeech": "adjective",
+    "definition": "Understood without being directly stated.",
+    "example": "There was a tacit agreement that nobody would spoil the ending.",
+    "synonyms": ["implied", "unstated", "unspoken"]
+  },
+  {
+    "word": "apricity",
+    "pronunciation": "uh-PRIS-uh-tee",
+    "partOfSpeech": "noun",
+    "definition": "The warmth of the sun in winter.",
+    "example": "They lingered on the bench, enjoying a rare moment of apricity.",
+    "synonyms": ["sunwarmth", "sunlight", "warmth"]
+  },
+  {
+    "word": "salient",
+    "pronunciation": "SAY-lee-unt",
+    "partOfSpeech": "adjective",
+    "definition": "Most noticeable or important.",
+    "example": "The report opened with the salient facts before going into detail.",
+    "synonyms": ["important", "notable", "prominent"]
+  },
+  {
+    "word": "equanimity",
+    "pronunciation": "ee-kwuh-NIM-uh-tee",
+    "partOfSpeech": "noun",
+    "definition": "Mental calmness and balance, especially under stress.",
+    "example": "She handled the sudden change with impressive equanimity.",
+    "synonyms": ["calm", "composure", "poise"]
+  },
+  {
+    "word": "incandescent",
+    "pronunciation": "in-kan-DES-unt",
+    "partOfSpeech": "adjective",
+    "definition": "Glowing with heat or light, or intensely brilliant.",
+    "example": "The guitarist played an incandescent solo that lifted the whole room.",
+    "synonyms": ["glowing", "brilliant", "radiant"]
+  },
+  {
+    "word": "mirth",
+    "pronunciation": "murth",
+    "partOfSpeech": "noun",
+    "definition": "Gladness, laughter, and lighthearted enjoyment.",
+    "example": "A wave of mirth spread through the group after the harmless mix-up.",
+    "synonyms": ["laughter", "joy", "glee"]
+  },
+  {
+    "word": "stalwart",
+    "pronunciation": "STAWL-wurt",
+    "partOfSpeech": "adjective",
+    "definition": "Loyal, reliable, and hardworking.",
+    "example": "The stalwart volunteers arrived early and stayed until everything was done.",
+    "synonyms": ["loyal", "steady", "reliable"]
+  },
+  {
+    "word": "numinous",
+    "pronunciation": "NOO-muh-nus",
+    "partOfSpeech": "adjective",
+    "definition": "Having a mysterious, spiritual, or awe-inspiring quality.",
+    "example": "The old cathedral felt numinous in the quiet morning light.",
+    "synonyms": ["mystical", "sacred", "awe-inspiring"]
+  },
+  {
+    "word": "deft",
+    "pronunciation": "deft",
+    "partOfSpeech": "adjective",
+    "definition": "Skillful, quick, and graceful.",
+    "example": "With a deft motion, the baker shaped the dough into a perfect braid.",
+    "synonyms": ["skillful", "nimble", "adept"]
+  },
+  {
+    "word": "venerable",
+    "pronunciation": "VEN-er-uh-bul",
+    "partOfSpeech": "adjective",
+    "definition": "Respected because of age, wisdom, character, or history.",
+    "example": "The venerable theater still hosted sold-out shows downtown.",
+    "synonyms": ["respected", "honored", "esteemed"]
+  },
+  {
+    "word": "radiant",
+    "pronunciation": "RAY-dee-unt",
+    "partOfSpeech": "adjective",
+    "definition": "Sending out light, warmth, joy, or energy.",
+    "example": "She looked radiant after hearing the good news.",
+    "synonyms": ["glowing", "bright", "joyful"]
+  },
+  {
+    "word": "auspicious",
+    "pronunciation": "aw-SPISH-us",
+    "partOfSpeech": "adjective",
+    "definition": "Suggesting that good things are likely to happen.",
+    "example": "A clear sky made it an auspicious morning for the race.",
+    "synonyms": ["promising", "hopeful", "favorable"]
+  },
+  {
+    "word": "zenith",
+    "pronunciation": "ZEE-nith",
+    "partOfSpeech": "noun",
+    "definition": "The highest point or peak.",
+    "example": "The athlete reached the zenith of her career with a championship win.",
+    "synonyms": ["peak", "summit", "height"]
+  },
+  {
+    "word": "wry",
+    "pronunciation": "ry",
+    "partOfSpeech": "adjective",
+    "definition": "Dryly humorous, often in a slightly ironic way.",
+    "example": "He gave a wry smile when the supposedly quick errand took all afternoon.",
+    "synonyms": ["ironic", "dry", "droll"]
+  },
+  {
+    "word": "solace",
+    "pronunciation": "SAH-lis",
+    "partOfSpeech": "noun",
+    "definition": "Comfort during sadness, disappointment, or distress.",
+    "example": "She found solace in a familiar song after a hard day.",
+    "synonyms": ["comfort", "relief", "consolation"]
+  },
+  {
+    "word": "brisk",
+    "pronunciation": "brisk",
+    "partOfSpeech": "adjective",
+    "definition": "Quick, energetic, or pleasantly cool.",
+    "example": "A brisk walk before breakfast helped him wake up.",
+    "synonyms": ["quick", "lively", "crisp"]
+  },
+  {
+    "word": "elated",
+    "pronunciation": "ih-LAY-tid",
+    "partOfSpeech": "adjective",
+    "definition": "Extremely happy and excited.",
+    "example": "The players were elated when the final whistle blew.",
+    "synonyms": ["thrilled", "joyful", "ecstatic"]
+  },
+  {
+    "word": "pensive",
+    "pronunciation": "PEN-siv",
+    "partOfSpeech": "adjective",
+    "definition": "Quietly thoughtful, often with a serious or reflective mood.",
+    "example": "The last page left her pensive for the rest of the evening.",
+    "synonyms": ["thoughtful", "reflective", "meditative"]
+  }
+]
