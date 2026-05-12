@@ -135,3 +135,36 @@ WOTD_ROLE_ID=123456789012345678
 The bot will replace `{word}` in the challenge text with the daily word.
 
 If you add `WOTD_ROLE_ID`, use a Discord role ID, not the visible role name. In Discord, enable Developer Mode, right-click the `Wordussies` role, and choose **Copy Role ID**.
+
+## Vanishing Wake Up
+
+The repo also includes `.github/workflows/wake-up.yml`. GitHub Actions cannot run at truly random times by itself, so this workflow runs every 30 minutes and `wake-up.mjs` randomly decides whether to send anything.
+
+Add this GitHub Actions secret:
+
+```text
+WAKE_UP_USER_IDS
+```
+
+Set it to comma-separated Discord user IDs:
+
+```text
+123456789012345678,987654321098765432
+```
+
+Defaults:
+
+```ini
+WAKE_UP_MESSAGE=WAKE UP
+WAKE_UP_DELETE_AFTER_MS=0
+WAKE_UP_CHANCE_PERCENT=4
+WAKE_UP_TIMEZONE=America/New_York
+```
+
+With the workflow checking every 30 minutes, `WAKE_UP_CHANCE_PERCENT=4` averages a little under two sends per day. The script posts with `wait=true`, receives the webhook message ID, then deletes that webhook message. A delay of `0` means it deletes as soon as Discord returns the sent message.
+
+Optional local testing:
+
+```powershell
+node .\wake-up.mjs --dry-run --force
+```
