@@ -1,8 +1,13 @@
 name: Discord Wake Up
 
 on:
+  push:
+    paths:
+      - ".github/workflows/wake-up.yml"
+      - "word-of-day-discord/wake-up.mjs"
   schedule:
-    - cron: "*/30 * * * *"
+    # Avoid :00 because GitHub can delay or drop scheduled jobs at high-load times.
+    - cron: "7,37 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -44,6 +49,6 @@ jobs:
           WAKE_UP_DELETE_AFTER_MS: "0"
           WAKE_UP_CHANCE_PERCENT: "4"
           WAKE_UP_TIMEZONE: America/New_York
-          DRY_RUN: ${{ inputs.dry_run || 'false' }}
-          FORCE_SEND: ${{ inputs.force_send || 'false' }}
+          DRY_RUN: ${{ github.event_name == 'push' && 'true' || inputs.dry_run || 'false' }}
+          FORCE_SEND: ${{ github.event_name == 'push' && 'false' || inputs.force_send || 'false' }}
         run: node word-of-day-discord/wake-up.mjs
