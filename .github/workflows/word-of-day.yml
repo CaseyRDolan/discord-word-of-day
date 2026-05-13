@@ -4,7 +4,14 @@ on:
   schedule:
     # GitHub cron is UTC and can be delayed. These are noon-ish Eastern plus
     # backup attempts; a cache key prevents duplicate daily posts.
-    - cron: "7,37 16,17,18 * * *"
+    - cron: "7 16 * * *"
+    - cron: "37 16 * * *"
+    - cron: "7 17 * * *"
+    - cron: "37 17 * * *"
+    - cron: "7 18 * * *"
+    - cron: "37 18 * * *"
+    - cron: "7 19 * * *"
+    - cron: "37 19 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -15,6 +22,10 @@ on:
         options:
           - "false"
           - "true"
+
+concurrency:
+  group: discord-word-of-day
+  cancel-in-progress: false
 
 jobs:
   post-word:
