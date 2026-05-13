@@ -77,7 +77,7 @@ The repo includes a GitHub Actions workflow at:
 .github/workflows/word-of-day.yml
 ```
 
-That workflow runs in GitHub's cloud instead of on your computer. It checks twice per day in UTC so it can post at noon Eastern during both daylight saving time and standard time. Only the run that lands during the noon hour in `America/New_York` actually posts.
+That workflow runs in GitHub's cloud instead of on your computer. GitHub schedules can be delayed, so the workflow makes several noon-window attempts in UTC and uses a daily cache key to prevent duplicate posts. The first successful attempt for the Eastern date posts the word; later attempts for that same date skip.
 
 One-time setup:
 

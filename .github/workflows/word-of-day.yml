@@ -2,10 +2,9 @@ name: Discord Word of the Day
 
 on:
   schedule:
-    # GitHub cron is UTC. Running at both 16:00 and 17:00 UTC lets the
-    # workflow hit noon Eastern during both daylight and standard time.
-    - cron: "0 16 * * *"
-    - cron: "0 17 * * *"
+    # GitHub cron is UTC and can be delayed. These are noon-ish Eastern plus
+    # backup attempts; a cache key prevents duplicate daily posts.
+    - cron: "7,37 16,17,18 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -37,20 +36,84 @@ jobs:
         working-directory: word-of-day-discord
         run: npm ci
 
-      - name: Check noon Eastern
+      - name: Check Eastern posting window
         id: noon
         shell: bash
+        env:
+          TRIGGER_CRON: ${{ github.event.schedule }}
         run: |
-          hour="$(TZ=America/New_York date +%H)"
-          echo "eastern_hour=$hour" >> "$GITHUB_OUTPUT"
-          if [ "$hour" = "12" ]; then
-            echo "should_post=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "should_post=false" >> "$GITHUB_OUTPUT"
-          fi
+          node <<'EOF'
+          const fs = require("node:fs");
+
+          const timeZone = "America/New_York";
+          const schedule = process.env.TRIGGER_CRON || "";
+          const now = new Date();
+          const easternDate = formatDateKey(now, timeZone);
+          const expectedUtcHour = findUtcHourForLocalNoon(easternDate, timeZone);
+          const scheduledUtcHour = Number(schedule.split(/\s+/)[1]);
+          const backupHours = new Set([
+            expectedUtcHour,
+            (expectedUtcHour + 1) % 24,
+            (expectedUtcHour + 2) % 24,
+          ]);
+          const shouldPost = Number.isInteger(scheduledUtcHour)
+            ? backupHours.has(scheduledUtcHour)
+            : true;
+
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, [
+            `eastern_date=${easternDate}`,
+            `expected_utc_hour=${expectedUtcHour}`,
+            `scheduled_utc_hour=${Number.isInteger(scheduledUtcHour) ? scheduledUtcHour : ""}`,
+            `should_post=${shouldPost}`,
+            "",
+          ].join("\n"));
+
+          function formatDateKey(date, tz) {
+            const parts = Object.fromEntries(
+              new Intl.DateTimeFormat("en-CA", {
+                timeZone: tz,
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              }).formatToParts(date).map((part) => [part.type, part.value]),
+            );
+            return `${parts.year}-${parts.month}-${parts.day}`;
+          }
+
+          function findUtcHourForLocalNoon(dateKey, tz) {
+            const [year, month, day] = dateKey.split("-").map(Number);
+            for (let hour = 0; hour < 24; hour += 1) {
+              const candidate = new Date(Date.UTC(year, month - 1, day, hour, 0, 0));
+              const parts = Object.fromEntries(
+                new Intl.DateTimeFormat("en-US", {
+                  timeZone: tz,
+                  hour: "numeric",
+                  hourCycle: "h23",
+                }).formatToParts(candidate).map((part) => [part.type, part.value]),
+              );
+              if (Number(parts.hour) === 12) {
+                return hour;
+              }
+            }
+            throw new Error(`Could not find UTC hour for noon in ${tz} on ${dateKey}.`);
+          }
+          EOF
+
+      - name: Restore daily post cache
+        id: daily-cache
+        if: github.event_name == 'schedule' && steps.noon.outputs.should_post == 'true'
+        uses: actions/cache/restore@v4
+        with:
+          path: .word-of-day-posted
+          key: word-of-day-${{ steps.noon.outputs.eastern_date }}
+
+      - name: Prepare daily post state
+        if: github.event_name == 'workflow_dispatch' || steps.noon.outputs.should_post == 'true'
+        run: mkdir -p .word-of-day-posted
 
       - name: Post word of the day
-        if: github.event_name == 'workflow_dispatch' || steps.noon.outputs.should_post == 'true'
+        id: post
+        if: github.event_name == 'workflow_dispatch' || (steps.noon.outputs.should_post == 'true' && steps.daily-cache.outputs.cache-hit != 'true')
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           WOTD_TIMEZONE: America/New_York
@@ -61,9 +124,22 @@ jobs:
           WOTD_INTRO_TEXT: "Wordussies, today's word has dropped."
           WOTD_CHALLENGE_TEXT: "Use **{word}** in a sentence at some point today."
           WOTD_ROLE_ID: "1503222086682808370"
+          WOTD_STATE_FILE: .word-of-day-posted/last-posted.json
           DRY_RUN: ${{ inputs.dry_run || 'false' }}
         run: node word-of-day-discord/post-word-of-day.mjs
+
+      - name: Save daily post cache
+        if: github.event_name == 'schedule' && steps.noon.outputs.should_post == 'true' && steps.daily-cache.outputs.cache-hit != 'true' && steps.post.outcome == 'success'
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: .word-of-day-posted
+          key: word-of-day-${{ steps.noon.outputs.eastern_date }}
 
       - name: Skip non-noon scheduled run
         if: github.event_name == 'schedule' && steps.noon.outputs.should_post != 'true'
         run: echo "Skipping because it is not noon in America/New_York."
+
+      - name: Skip already-posted scheduled run
+        if: github.event_name == 'schedule' && steps.daily-cache.outputs.cache-hit == 'true'
+        run: echo "Skipping because Word of the Day already posted for ${{ steps.noon.outputs.eastern_date }}."
