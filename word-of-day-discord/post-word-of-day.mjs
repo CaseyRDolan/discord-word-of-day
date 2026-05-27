@@ -348,6 +348,8 @@ function alreadyPosted(filePath, dateKey) {
 }
 
 function buildDiscordPayload(word, dateKey) {
+  const wordLink = normalizeDiscordUrl(word.link);
+  const audioUrl = normalizeDiscordUrl(word.audioUrl);
   const fields = [
     {
       name: "Today's Challenge",
@@ -388,10 +390,10 @@ function buildDiscordPayload(word, dateKey) {
     });
   }
 
-  if (word.audioUrl) {
+  if (audioUrl) {
     fields.push({
       name: "Audio",
-      value: `[Listen to Merriam-Webster's short audio](${word.audioUrl})`,
+      value: `[Listen to Merriam-Webster's short audio](${audioUrl})`,
       inline: false,
     });
   }
@@ -407,8 +409,8 @@ function buildDiscordPayload(word, dateKey) {
   if (word.source === "Merriam-Webster") {
     fields.push({
       name: "Source",
-      value: word.link
-        ? `[Merriam-Webster Word of the Day](${word.link})`
+      value: wordLink
+        ? `[Merriam-Webster Word of the Day](${wordLink})`
         : "Merriam-Webster Word of the Day",
       inline: false,
     });
@@ -426,7 +428,7 @@ function buildDiscordPayload(word, dateKey) {
               }
             : undefined,
         title: word.word,
-        url: word.link,
+        url: wordLink || undefined,
         description: `**Definition**\n${truncate(word.definition, 900)}`,
         color: Number.parseInt(process.env.WOTD_EMBED_COLOR || "3BA55D", 16),
         fields,
@@ -482,19 +484,77 @@ function personalizeText(template, word) {
   return template.replaceAll("{word}", word.word);
 }
 
+function normalizeDiscordUrl(value) {
+  if (!value) return "";
+
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "http:" && url.protocol !== "https:") {
+      return "";
+    }
+    return url.href;
+  } catch {
+    return "";
+  }
+}
+
 async function postToDiscord(webhookUrl, payload) {
-  const response = await fetch(webhookUrl, {
+  const response = await sendDiscordPayload(webhookUrl, payload);
+
+  if (response.ok) {
+    return;
+  }
+
+  const body = await response.text();
+  if (response.status === 400 && payload.embeds?.length) {
+    console.warn(
+      `Discord rejected the full embed (${body}). Retrying with the essential word card.`,
+    );
+
+    const fallbackResponse = await sendDiscordPayload(
+      webhookUrl,
+      buildEssentialDiscordPayload(payload),
+    );
+
+    if (fallbackResponse.ok) {
+      return;
+    }
+
+    const fallbackBody = await fallbackResponse.text();
+    throw new Error(
+      `Discord webhook failed: ${response.status} ${body}; essential retry failed: ${fallbackResponse.status} ${fallbackBody}`,
+    );
+  }
+
+  throw new Error(`Discord webhook failed: ${response.status} ${body}`);
+}
+
+function sendDiscordPayload(webhookUrl, payload) {
+  return fetch(webhookUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
   });
+}
 
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`Discord webhook failed: ${response.status} ${body}`);
-  }
+function buildEssentialDiscordPayload(payload) {
+  const embed = payload.embeds[0];
+  return {
+    username: payload.username,
+    avatar_url: payload.avatar_url,
+    content: payload.content,
+    allowed_mentions: payload.allowed_mentions,
+    embeds: [
+      {
+        title: embed.title,
+        description: embed.description,
+        color: embed.color,
+        footer: embed.footer,
+      },
+    ],
+  };
 }
 
 function writeState(filePath, state) {
