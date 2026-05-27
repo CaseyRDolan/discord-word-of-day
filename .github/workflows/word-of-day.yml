@@ -104,7 +104,6 @@ jobs:
           WOTD_SOURCE: merriam-webster
           WOTD_ALLOW_LOCAL_FALLBACK: "1"
           WOTD_INTRO_TEXT: "Wordussies, today's word has dropped."
-          WOTD_CHALLENGE_TEXT: "Use **{word}** in a sentence at some point today."
           WOTD_ROLE_ID: "1503222086682808370"
           WOTD_STATE_FILE: .word-of-day-posted/last-posted.json
           DRY_RUN: ${{ inputs.dry_run || 'false' }}

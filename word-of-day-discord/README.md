@@ -130,10 +130,7 @@ WOTD_USERNAME=Word of the Day
 WOTD_EMBED_COLOR=3BA55D
 WOTD_SOURCE=merriam-webster
 WOTD_INTRO_TEXT=Wordussies, today's word has dropped.
-WOTD_CHALLENGE_TEXT=Use **{word}** in a sentence at some point today.
 WOTD_ROLE_ID=123456789012345678
 ```
-
-The bot will replace `{word}` in the challenge text with the daily word.
 
 If you add `WOTD_ROLE_ID`, use a Discord role ID, not the visible role name. In Discord, enable Developer Mode, right-click the `Wordussies` role, and choose **Copy Role ID**.

@@ -25,9 +25,6 @@ const merriamWebsterFeedUrl =
   process.env.WOTD_MERRIAM_WEBSTER_FEED_URL || defaultMerriamWebsterFeedUrl;
 const introText =
   process.env.WOTD_INTRO_TEXT || "Wordussies, today's word has dropped.";
-const challengeText =
-  process.env.WOTD_CHALLENGE_TEXT ||
-  "Use **{word}** in a sentence at some point today.";
 
 const requestedDateKey = getDateKey({
   override: args.get("date") || process.env.WOTD_DATE,
@@ -350,13 +347,7 @@ function alreadyPosted(filePath, dateKey) {
 function buildDiscordPayload(word, dateKey) {
   const wordLink = normalizeDiscordUrl(word.link);
   const audioUrl = normalizeDiscordUrl(word.audioUrl);
-  const fields = [
-    {
-      name: "Today's Challenge",
-      value: personalizeText(challengeText, word),
-      inline: false,
-    },
-  ];
+  const fields = [];
 
   if (word.pronunciation) {
     fields.push({
