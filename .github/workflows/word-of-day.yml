@@ -1,12 +1,6 @@
 name: Discord Word of the Day
 
 on:
-  # Temporary catch-up trigger for the failed May 26 post. Remove after success.
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/word-of-day.yml"
   schedule:
     # GitHub scheduled jobs can be delayed or dropped. Try every 5 minutes
     # from noon through 2:57 PM Eastern; the daily cache prevents duplicates.
@@ -72,7 +66,7 @@ jobs:
 
       - name: Restore daily post cache
         id: daily-cache
-        if: github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.dry_run != 'true')
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.dry_run != 'true')
         uses: actions/cache/restore@v4
         with:
           path: .word-of-day-posted
@@ -117,7 +111,7 @@ jobs:
         run: node word-of-day-discord/post-word-of-day.mjs
 
       - name: Save daily post cache
-        if: (github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.dry_run != 'true')) && steps.daily-cache.outputs.cache-hit != 'true' && steps.post.outcome == 'success'
+        if: (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.dry_run != 'true')) && steps.daily-cache.outputs.cache-hit != 'true' && steps.post.outcome == 'success'
         continue-on-error: true
         uses: actions/cache/save@v4
         with:
