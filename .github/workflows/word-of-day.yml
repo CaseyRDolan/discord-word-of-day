@@ -16,6 +16,14 @@ on:
         options:
           - "false"
           - "true"
+      force_post:
+        description: "Post again even if today's word already posted"
+        required: true
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
 
 concurrency:
   group: discord-word-of-day
@@ -58,18 +66,18 @@ jobs:
 
       - name: Restore daily post cache
         id: daily-cache
-        if: github.event_name == 'schedule'
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.dry_run != 'true')
         uses: actions/cache/restore@v4
         with:
           path: .word-of-day-posted
           key: word-of-day-${{ steps.noon.outputs.eastern_date }}
 
       - name: Check out repository
-        if: github.event_name == 'workflow_dispatch' || steps.daily-cache.outputs.cache-hit != 'true'
+        if: inputs.dry_run == 'true' || inputs.force_post == 'true' || steps.daily-cache.outputs.cache-hit != 'true'
         uses: actions/checkout@v4
 
       - name: Set up Node
-        if: github.event_name == 'workflow_dispatch' || steps.daily-cache.outputs.cache-hit != 'true'
+        if: inputs.dry_run == 'true' || inputs.force_post == 'true' || steps.daily-cache.outputs.cache-hit != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -77,17 +85,17 @@ jobs:
           cache-dependency-path: word-of-day-discord/package-lock.json
 
       - name: Install dependencies
-        if: github.event_name == 'workflow_dispatch' || steps.daily-cache.outputs.cache-hit != 'true'
+        if: inputs.dry_run == 'true' || inputs.force_post == 'true' || steps.daily-cache.outputs.cache-hit != 'true'
         working-directory: word-of-day-discord
         run: npm ci
 
       - name: Prepare daily post state
-        if: github.event_name == 'workflow_dispatch' || steps.daily-cache.outputs.cache-hit != 'true'
+        if: inputs.dry_run == 'true' || inputs.force_post == 'true' || steps.daily-cache.outputs.cache-hit != 'true'
         run: mkdir -p .word-of-day-posted
 
       - name: Post word of the day
         id: post
-        if: github.event_name == 'workflow_dispatch' || steps.daily-cache.outputs.cache-hit != 'true'
+        if: inputs.dry_run == 'true' || inputs.force_post == 'true' || steps.daily-cache.outputs.cache-hit != 'true'
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           WOTD_TIMEZONE: America/New_York
@@ -103,13 +111,13 @@ jobs:
         run: node word-of-day-discord/post-word-of-day.mjs
 
       - name: Save daily post cache
-        if: github.event_name == 'schedule' && steps.daily-cache.outputs.cache-hit != 'true' && steps.post.outcome == 'success'
+        if: (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.dry_run != 'true')) && steps.daily-cache.outputs.cache-hit != 'true' && steps.post.outcome == 'success'
         continue-on-error: true
         uses: actions/cache/save@v4
         with:
           path: .word-of-day-posted
           key: word-of-day-${{ steps.noon.outputs.eastern_date }}
 
-      - name: Skip already-posted scheduled run
-        if: github.event_name == 'schedule' && steps.daily-cache.outputs.cache-hit == 'true'
+      - name: Skip already-posted run
+        if: steps.daily-cache.outputs.cache-hit == 'true'
         run: echo "Skipping because Word of the Day already posted for ${{ steps.noon.outputs.eastern_date }}."

@@ -90,6 +90,8 @@ One-time setup:
 
 You can test the hosted workflow manually from the **Actions** tab by choosing **Discord Word of the Day** and clicking **Run workflow**. Choose `dry_run=true` to preview without posting.
 
+To recover a missed daily post, run it with `dry_run=false` and `force_post=false`. The workflow records that date after it posts, so delayed scheduled attempts skip instead of posting again. Use `force_post=true` only when you deliberately want a second copy.
+
 ## Customizing
 
 By default, the script uses Merriam-Webster:
