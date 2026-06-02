@@ -79,6 +79,8 @@ The repo includes a GitHub Actions workflow at:
 
 That workflow runs in GitHub's cloud instead of on your computer. GitHub schedules can be delayed or dropped, so the workflow tries every 5 minutes from 12:02 PM through 2:57 PM America/New_York and uses a daily cache key to prevent duplicate posts. The first successful attempt for the Eastern date posts the word; later attempts for that same date skip.
 
+Do not keep the Windows scheduled task enabled when using the GitHub workflow. If both are active, the Windows task can post from your computer and GitHub can post again later.
+
 One-time setup:
 
 1. Push this project to a GitHub repository.
